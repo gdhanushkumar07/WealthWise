@@ -1,0 +1,71 @@
+{
+  "entities": {
+    "Expense": {
+      "title": "Expense",
+      "description": "Represents an individual recorded expense transaction.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The Firebase Authentication UID of the owner."
+        },
+        "amount": {
+          "type": "number",
+          "description": "The expense amount in USD."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the expense."
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The date the expense was incurred (YYYY-MM-DD)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description of the expense transaction."
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Epoch timestamp of when the expense was recorded."
+        }
+      },
+      "required": ["userId", "amount", "category", "date", "description"]
+    },
+    "Budget": {
+      "title": "Budget",
+      "description": "Represents a budget limit for overall spending or a specific category in a given month.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The Firebase Authentication UID of the owner."
+        },
+        "category": {
+          "type": "string",
+          "description": "The target category or 'all' for overall budget."
+        },
+        "amount": {
+          "type": "number",
+          "description": "The maximum spending budget limit in USD."
+        },
+        "month": {
+          "type": "string",
+          "description": "The target month (YYYY-MM)."
+        }
+      },
+      "required": ["userId", "category", "amount", "month"]
+    }
+  },
+  "firestore": {
+    "/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "The collection storing recorded expense transactions."
+    },
+    "/budgets/{budgetId}": {
+      "schema": "Budget",
+      "description": "The collection storing set monthly budget limits."
+    }
+  }
+}
